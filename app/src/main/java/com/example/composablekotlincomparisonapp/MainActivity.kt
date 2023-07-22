@@ -9,7 +9,7 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
 
     lateinit var textViewCounter: TextView
-    lateinit var buttonIncrement: Button
+    lateinit var buttonIncreament: Button
     lateinit var buttonDecrement: Button
 
     var initialCounterValue = 0
@@ -20,15 +20,15 @@ class MainActivity : AppCompatActivity() {
 
         //Initialise the Views
         textViewCounter = findViewById(R.id.textViewCounter)
-        buttonIncrement = findViewById(R.id.buttonIncrement)
         buttonDecrement = findViewById(R.id.buttonDecrement)
+        buttonIncreament = findViewById(R.id.buttonIncreament)
 
         //Initialise the counter value
         textViewCounter.text = initialCounterValue.toString()
 
         //Set the click listeners
         //Increment the counter value
-        buttonIncrement.setOnClickListener {
+        buttonIncreament.setOnClickListener {
             initialCounterValue++
             textViewCounter.text = initialCounterValue.toString()
         }

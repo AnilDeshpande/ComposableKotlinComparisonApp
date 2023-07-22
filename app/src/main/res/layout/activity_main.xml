@@ -7,12 +7,12 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/buttonIncrement"
+        android:id="@+id/buttonDecrement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="100dp"
-        android:text="Increment"
+        android:text="Decrement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,18 +24,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonDecrement"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDecrement"
-        app:layout_constraintStart_toEndOf="@+id/buttonIncrement"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonIncreament"
+        app:layout_constraintEnd_toStartOf="@+id/buttonIncreament"
+        app:layout_constraintStart_toEndOf="@+id/buttonDecrement"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonDecrement"
+        android:id="@+id/buttonIncreament"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="30dp"
-        android:text="Decrement"
+        android:text="Increment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
