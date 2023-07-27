@@ -44,11 +44,14 @@ fun MainScreen(){
 
     val context = LocalContext.current as ComponentActivity
 
-    var counter = remember { mutableStateOf(0) }
+    var counter = remember {
+        Log.i("MainActivity", "Counter initialized")
+        mutableStateOf(0)
+    }
 
     var increaseCounter = {
         counter.value = counter.value.plus(1)
-        Log.i("MainActivity", "Increase counter: $counter.value")
+        Log.i("MainActivity", "Increase counter: ${counter.value}")
     }
 
 
@@ -57,7 +60,7 @@ fun MainScreen(){
             showToast("Counter cannot be less than 0", context)
         }else{
             counter.value = counter.value.minus(1)
-            Log.i("MainActivity", "Decrease counter: $counter.value")
+            Log.i("MainActivity", "Decrease counter: ${counter.value}")
         }
     }
 
