@@ -18,6 +18,8 @@ import androidx.compose.material.Text
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,30 +27,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen( MainActivityViewModel())
+            MainScreen()
         }
-
     }
 }
 
+fun showToast(message: String, context: ComponentActivity){
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
 @Composable
-fun MainScreen(mainActivityViewModel: MainActivityViewModel){
+fun MainScreen(){
 
+    val context = LocalContext.current as ComponentActivity
 
-    mainActivityViewModel.textCounter.observeAsState().value?.let {
-        //Log.i("MainActivity","Counter value is $it")
+    var counter = remember { mutableStateOf(0) }
+
+    var increaseCounter = {
+        counter.value = counter.value.plus(1)
+        Log.i("MainActivity", "Increase counter: $counter.value")
     }
 
-    mainActivityViewModel.error.observeAsState().value?.let {
-        it?.let {
-            Toast.makeText(LocalContext.current, it.toString(), Toast.LENGTH_SHORT).show()
-        }
 
+    var decreaseCounter = {
+        if(counter.value == 0 ){
+            showToast("Counter cannot be less than 0", context)
+        }else{
+            counter.value = counter.value.minus(1)
+            Log.i("MainActivity", "Decrease counter: $counter.value")
+        }
     }
 
     Surface (
@@ -66,18 +76,18 @@ fun MainScreen(mainActivityViewModel: MainActivityViewModel){
                 verticalAlignment = Alignment.CenterVertically,
 
                 ) {
-                Button(onClick = { mainActivityViewModel.decreaseCounter.invoke() },
+                Button(onClick = { decreaseCounter.invoke() },
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(20.dp)) {
                     Text(text = "Decrease")
                 }
 
-                Text(text = "${mainActivityViewModel.textCounter.value}", modifier = Modifier
+                Text(text = "${counter.value}", modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(20.dp))
 
-                Button(onClick = { mainActivityViewModel.increaseCounter.invoke() },
+                Button(onClick = { increaseCounter.invoke() },
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(20.dp)) {
@@ -93,6 +103,6 @@ fun MainScreen(mainActivityViewModel: MainActivityViewModel){
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MainScreen(MainActivityViewModel())
+    MainScreen()
 }
 
