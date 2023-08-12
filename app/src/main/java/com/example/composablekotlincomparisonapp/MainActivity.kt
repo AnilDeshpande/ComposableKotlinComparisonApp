@@ -17,9 +17,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -44,23 +46,25 @@ fun MainScreen(){
 
     val context = LocalContext.current as ComponentActivity
 
-    var counter = remember {
+    var counter by remember {
         Log.i("MainActivity", "Counter initialized")
         mutableStateOf(0)
     }
 
+    Log.i("MainActivity", "Counter value in function $counter")
+
     var increaseCounter = {
-        counter.value = counter.value.plus(1)
-        Log.i("MainActivity", "Increase counter: ${counter.value}")
+        counter++
+        Log.i("MainActivity", "Increase counter: ${counter}")
     }
 
 
     var decreaseCounter = {
-        if(counter.value == 0 ){
+        if(counter == 0 ){
             showToast("Counter cannot be less than 0", context)
         }else{
-            counter.value = counter.value.minus(1)
-            Log.i("MainActivity", "Decrease counter: ${counter.value}")
+            counter--
+            Log.i("MainActivity", "Decrease counter: ${counter}")
         }
     }
 
@@ -86,7 +90,7 @@ fun MainScreen(){
                     Text(text = "Decrease")
                 }
 
-                Text(text = "${counter.value}", modifier = Modifier
+                Text(text = "${counter}", modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(20.dp))
 
